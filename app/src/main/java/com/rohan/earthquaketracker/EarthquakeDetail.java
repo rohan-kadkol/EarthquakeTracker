@@ -31,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+// Master branch
+
 public class EarthquakeDetail extends AppCompatActivity {
     private static final String TAG = EarthquakeDetail.class.getSimpleName();
 
