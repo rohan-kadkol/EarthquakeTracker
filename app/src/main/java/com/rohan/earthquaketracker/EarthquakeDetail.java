@@ -36,7 +36,6 @@ public class EarthquakeDetail extends AppCompatActivity {
 
     Earthquake mEarthquake;
     DetailsAdapter mAdapter;
-    int a=5;
     String mMapUrl;
 
     @BindView(R.id.tv_magnitude)
@@ -59,8 +58,6 @@ public class EarthquakeDetail extends AppCompatActivity {
     AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
-    
-    int a = 62;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
