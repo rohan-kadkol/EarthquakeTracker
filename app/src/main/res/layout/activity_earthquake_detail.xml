@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EarthquakeDetail">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed|snap">
+
+            <ImageView
+                android:id="@+id/iv_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:src="@mipmap/map_sample"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"/>
+
+            <View
+                android:id="@+id/v_map_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:background="@drawable/scrim"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_mag_loc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingStart="@dimen/start_margin"
+                android:paddingTop="@dimen/sub_margin"
+                android:paddingEnd="@dimen/start_margin"
+                android:paddingBottom="@dimen/sub_margin"
+                app:layout_collapseMode="pin">
+
+                <ImageView
+                    android:id="@+id/iv_mag_background"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/magnitude_background"
+                    android:transitionName="@string/magnitudeBackground"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_magnitude"
+                    app:layout_constraintEnd_toEndOf="@id/tv_magnitude"
+                    app:layout_constraintStart_toStartOf="@id/tv_magnitude"
+                    app:layout_constraintTop_toTopOf="@id/tv_magnitude" />
+
+                <TextView
+                    android:id="@+id/tv_magnitude"
+                    style="@style/Magnitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/sub_margin"
+                    android:textColor="@color/icons"
+                    android:transitionName="@string/magnitude"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_location_2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:text="3.4" />
+
+                <TextView
+                    android:id="@+id/tv_location_1"
+                    style="@style/Location1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:transitionName="@string/location_1"
+                    app:layout_constraintStart_toStartOf="@id/tv_location_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="18km ESE of" />
+
+                <TextView
+                    android:id="@+id/tv_location_2"
+                    style="@style/Location2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sub_margin"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="vertical"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="2"
+                    android:transitionName="@string/location_2"
+                    app:layout_constraintStart_toEndOf="@id/tv_magnitude"
+                    app:layout_constraintTop_toBottomOf="@id/tv_location_1"
+                    tools:text="Little Lake, CA" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    style="@style/Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sub_margin"
+                    android:transitionName="@string/time"
+                    app:layout_constraintStart_toStartOf="@id/tv_location_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_location_2"
+                    tools:text="Oct 07 11:12 AM" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:navigationIcon="@drawable/ic_arrow_back_24dp"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_detail"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

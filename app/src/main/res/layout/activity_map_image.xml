@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MapImageActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_collapseMode="pin"
+        android:background="@color/primary_light"
+        app:navigationIcon="@drawable/ic_arrow_back_24dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_mag_loc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/sub_margin"
+            android:paddingEnd="@dimen/start_margin"
+            android:paddingBottom="@dimen/sub_margin">
+
+            <ImageView
+                android:id="@+id/iv_mag_background"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/magnitude_background"
+                android:transitionName="@string/magnitudeBackground"
+                app:layout_constraintBottom_toBottomOf="@id/tv_magnitude"
+                app:layout_constraintEnd_toEndOf="@id/tv_magnitude"
+                app:layout_constraintStart_toStartOf="@id/tv_magnitude"
+                app:layout_constraintTop_toTopOf="@id/tv_magnitude" />
+
+            <TextView
+                android:id="@+id/tv_magnitude"
+                style="@style/Magnitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/sub_margin"
+                android:textColor="@color/icons"
+                android:transitionName="@string/magnitude"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_location_2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:text="3.4" />
+
+            <TextView
+                android:id="@+id/tv_location_1"
+                style="@style/Location1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:transitionName="@string/location_1"
+                app:layout_constraintStart_toStartOf="@id/tv_location_2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="18km ESE of" />
+
+            <TextView
+                android:id="@+id/tv_location_2"
+                style="@style/Location2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sub_margin"
+                android:ellipsize="marquee"
+                android:fadingEdge="vertical"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="2"
+                android:transitionName="@string/location_2"
+                app:layout_constraintStart_toEndOf="@id/tv_magnitude"
+                app:layout_constraintTop_toBottomOf="@id/tv_location_1"
+                tools:text="Little Lake, CA" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sub_margin"
+                android:transitionName="@string/time"
+                app:layout_constraintStart_toStartOf="@id/tv_location_2"
+                app:layout_constraintTop_toBottomOf="@id/tv_location_2"
+                tools:text="Oct 07 11:12 AM" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/iv_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        tools:src="@mipmap/map_sample" />
+
+</LinearLayout>
+
+<!--TODO: Create shared element transitions for all common views: ConstraintLayout, MapImage, etc.-->

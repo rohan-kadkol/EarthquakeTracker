@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">EarthquakeTracker</string>
+    <string name="location_2">location_2</string>
+    <string name="location_1">location_1</string>
+    <string name="time">time</string>
+    <string name="magnitude">magnitude</string>
+    <string name="magnitudeBackground">magnitudeBackground</string>
+    <string name="earthquake">earthquake</string>
+    <string name="title_alert">Alert level</string>
+    <string name="title_felt">Reported as felt by</string>
+    <string name="title_significance">Significance score</string>
+    <string name="content_significance">%.1f %%</string>
+    <string name="title_cdi_reported">Maximum Reported Intensity</string>
+    <string name="content_cdi_reported">%.1f / 10.0</string>
+    <string name="title_depth">Depth</string>
+    <string name="content_depth">%d km</string>
+    <string name="title_latitude">Latitude</string>
+    <string name="title_longitude">Longitude</string>
+    <string name="title_mmi_estimated">Maximum estimated intensity</string>
+    <string name="title_nst"># of seismic stations to calculate location</string>
+    <string name="content_null">-</string>
+    <string name="map_image_url">map-image-url</string>
+</resources>

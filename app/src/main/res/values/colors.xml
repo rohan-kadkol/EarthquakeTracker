@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#9C27B0</color>
+    <color name="primary_dark">#7B1FA2</color>
+    <color name="primary_light">#E1BEE7</color>
+    <color name="accent">#CDDC39</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <color name="magnitude_0">#4A7BA7</color>
+    <color name="magnitude_1">#4A7BA7</color>
+    <color name="magnitude_2">#04B4B3</color>
+    <color name="magnitude_3">#10CAC9</color>
+    <color name="magnitude_4">#F5A623</color>
+    <color name="magnitude_5">#FF7D50</color>
+    <color name="magnitude_6">#FC6644</color>
+    <color name="magnitude_7">#E75F40</color>
+    <color name="magnitude_8">#E13A20</color>
+    <color name="magnitude_9">#D93218</color>
+    <color name="magnitude_10">#C03823</color>
+
+    <color name="magnitude_0_scrim">#334A7BA7</color>
+    <color name="magnitude_1_scrim">#334A7BA7</color>
+    <color name="magnitude_2_scrim">#3304B4B3</color>
+    <color name="magnitude_3_scrim">#3310CAC9</color>
+    <color name="magnitude_4_scrim">#33F5A623</color>
+    <color name="magnitude_5_scrim">#33FF7D50</color>
+    <color name="magnitude_6_scrim">#33FC6644</color>
+    <color name="magnitude_7_scrim">#33E75F40</color>
+    <color name="magnitude_8_scrim">#33E13A20</color>
+    <color name="magnitude_9_scrim">#33D93218</color>
+    <color name="magnitude_10_scrim">#33C03823</color>
+
+<!--&lt;!&ndash;    Blue Grey 500&ndash;&gt;-->
+<!--    <color name="magnitude_0">#607D8B</color>-->
+
+<!--&lt;!&ndash;    Cyan 700&ndash;&gt;-->
+<!--    <color name="magnitude_1">#0097A7</color>-->
+
+<!--&lt;!&ndash;    Light Blue 800&ndash;&gt;-->
+<!--    <color name="magnitude_2">#0277BD</color>-->
+
+<!--&lt;!&ndash;    Blue 900&ndash;&gt;-->
+<!--    <color name="magnitude_3">#0D47A1</color>-->
+
+<!--&lt;!&ndash;    Custom&ndash;&gt;-->
+<!--    <color name="magnitude_4">#F5A623</color>-->
+
+<!--&lt;!&ndash;    Deep Orange 600&ndash;&gt;-->
+<!--    <color name="magnitude_5">#F4511E</color>-->
+
+<!--&lt;!&ndash;    Orange 900&ndash;&gt;-->
+<!--    <color name="magnitude_6">#E65100</color>-->
+
+<!--&lt;!&ndash;    Red 600&ndash;&gt;-->
+<!--    <color name="magnitude_7">#E53935</color>-->
+
+<!--&lt;!&ndash;    Red 900&ndash;&gt;-->
+<!--    <color name="magnitude_8">#B71C1C</color>-->
+
+</resources>
