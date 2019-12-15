@@ -58,6 +58,8 @@ public class EarthquakeDetail extends AppCompatActivity {
     AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
+    
+    int a = 62;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
