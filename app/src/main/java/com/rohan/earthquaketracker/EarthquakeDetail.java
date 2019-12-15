@@ -36,6 +36,7 @@ public class EarthquakeDetail extends AppCompatActivity {
 
     Earthquake mEarthquake;
     DetailsAdapter mAdapter;
+    int a=5;
     String mMapUrl;
 
     @BindView(R.id.tv_magnitude)
