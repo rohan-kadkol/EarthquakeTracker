@@ -2,6 +2,8 @@ package com.rohan.earthquaketracker.utils;
 
 import android.net.Uri;
 
+import com.rohan.earthquaketracker.BuildConfig;
+
 public final class UriUtils {
     private static final String HTTPS = "https";
     private static final String AUTHORITY = "maps.googleapis.com";
@@ -26,7 +28,7 @@ public final class UriUtils {
         if (userLat != null || userLng != null) {
             builder.appendQueryParameter(MARKERS, COLOR + ":red|" + userLat + "," + userLng);
         }
-        builder.appendQueryParameter(API_KEY, "AIzaSyBfsYcofQkfV4yHpeMpB2XJihJDBhM-Mjw");
+        builder.appendQueryParameter(API_KEY, BuildConfig.API_KEY);
         return builder.toString();
     }
 }
