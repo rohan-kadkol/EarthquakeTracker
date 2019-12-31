@@ -99,14 +99,13 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
             String[] location = StringUtils.getFormattedLocation(earthquake.getProperties().getPlace());
             int magBackgroundColorId = earthquake.getProperties().getMagnitudeBackground();
             int scrimResId = earthquake.getProperties().getScrim();
+            int rootBackgroundColorId = earthquake.getProperties().getRootBackground();
             String time = StringUtils.getFormattedDate(earthquake.getProperties().getTime() * 1000L);
 
             tvMagnitude.setText(magnitude);
             tvLocation1.setText(location[0]);
             tvLocation2.setText(location[1]);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                root.setBackground(tvBody.getContext().getDrawable(scrimResId));
-            }
+            root.setBackgroundColor(ContextCompat.getColor(ivMagBackground.getContext(), rootBackgroundColorId));
             ivMagBackground.setColorFilter(ContextCompat.getColor(ivMagBackground.getContext(), magBackgroundColorId));
             tvTime.setText(time);
 

@@ -74,7 +74,6 @@ public class EarthquakeDetail extends AppCompatActivity {
 
         loadToolbar();
         loadDetails();
-
         loadMapImage();
     }
 
@@ -114,12 +113,14 @@ public class EarthquakeDetail extends AppCompatActivity {
         String magnitude = StringUtils.getFormattedMagnitude(mEarthquake.getProperties().getMagnitude());
         String[] location = StringUtils.getFormattedLocation(mEarthquake.getProperties().getPlace());
         int magBackground = mEarthquake.getProperties().getMagnitudeBackground();
+        int rootBackground = mEarthquake.getProperties().getRootBackground();
         String time = StringUtils.getFormattedDate(mEarthquake.getProperties().getTime() * 1000L);
 
         tvMagnitude.setText(magnitude);
         tvLocation1.setText(location[0]);
         tvLocation2.setText(location[1]);
         ivMagBackground.setColorFilter(ContextCompat.getColor(ivMagBackground.getContext(), magBackground));
+        appBarLayout.setBackgroundColor(ContextCompat.getColor(ivMagBackground.getContext(), rootBackground));
         tvTime.setText(time);
 
         toolbar.setNavigationOnClickListener(view -> finish());

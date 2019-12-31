@@ -11,16 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                app:title="Earthquake Tracker"
-                android:layout_height="?actionBarSize"/>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                android:layout_height="?actionBarSize"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+                app:title="@string/app_name"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

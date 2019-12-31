@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         viewModel.getDownloading().observe(this, downloading -> mSwipeRefreshLayout.setRefreshing(downloading));
 
         LocationRepository.initializeLocation(this);
+
+        MainRepository.downloadEarthquakes();
     }
 
     @Override

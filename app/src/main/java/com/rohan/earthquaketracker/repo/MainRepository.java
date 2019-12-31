@@ -30,6 +30,7 @@ public class MainRepository {
         sDownloading.setValue(true);
 
         ApiMethods apiMethods = RetrofitClientInstance.getRetrofitInstance().create(ApiMethods.class);
+        apiMethods.getEarthquakes(200).cancel();
         apiMethods.getEarthquakes(200).enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {

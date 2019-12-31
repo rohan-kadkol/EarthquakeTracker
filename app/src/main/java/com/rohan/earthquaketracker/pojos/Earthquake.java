@@ -58,3 +58,5 @@ public class Earthquake implements Parcelable {
         parcel.writeString(mId);
     }
 }
+
+// TODO: Remove the scrim field if you're not going to use the scrim in the item root background.
