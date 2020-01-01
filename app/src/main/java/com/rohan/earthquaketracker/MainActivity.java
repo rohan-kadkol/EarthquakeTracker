@@ -18,13 +18,8 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -37,8 +32,7 @@ import com.rohan.earthquaketracker.repo.MainRepository;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements EarthquakesAdapter.EarthquakeClickInterface,
-        AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements EarthquakesAdapter.EarthquakeClickInterface {
     EarthquakesAdapter mAdapter;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -58,12 +52,6 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         LocationRepository.initializeLocation(this);
 
         MainRepository.downloadEarthquakes();
-
-        Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.count_earthquakes_string_array, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -112,16 +100,5 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         Intent intent = new Intent(this, EarthquakeDetail.class);
         intent.putExtra(getString(R.string.earthquake), earthquake);
         startActivity(intent, bundle);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }
