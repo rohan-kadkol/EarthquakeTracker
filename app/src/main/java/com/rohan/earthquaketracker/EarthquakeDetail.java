@@ -88,7 +88,7 @@ public class EarthquakeDetail extends AppCompatActivity {
                 .into(ivMap, new Callback() {
                     @Override
                     public void onSuccess() {
-                        vMapBackground.setVisibility(View.VISIBLE);
+//                        vMapBackground.setAlpha(1);
                     }
 
                     @Override
@@ -135,7 +135,9 @@ public class EarthquakeDetail extends AppCompatActivity {
                     new Pair<>(tvLocation1, tvLocation1.getTransitionName()),
                     new Pair<>(tvLocation2, tvLocation2.getTransitionName()),
                     new Pair<>(tvTime, tvTime.getTransitionName()),
-                    new Pair<>(ivMagBackground, ivMagBackground.getTransitionName())).toBundle();
+                    new Pair<>(ivMagBackground, ivMagBackground.getTransitionName()),
+//                    new Pair<>(ivMap, ivMap.getTransitionName()),
+                    new Pair<>(vMapBackground, vMapBackground.getTransitionName())).toBundle();
         }
 
         Intent intent = new Intent(this, MapImageActivity.class);

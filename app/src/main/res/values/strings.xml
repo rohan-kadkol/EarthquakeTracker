@@ -20,4 +20,14 @@
     <string name="title_nst"># of seismic stations to calculate location</string>
     <string name="content_null">-</string>
     <string name="map_image_url">map-image-url</string>
+    <string name="map">map</string>
+    <string name="map_background">map_background</string>
+
+    <string-array name="count_earthquakes_string_array">
+        <item>100</item>
+        <item>200</item>
+        <item>300</item>
+        <item>400</item>
+        <item>500</item>
+    </string-array>
 </resources>

@@ -87,12 +87,28 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/iv_map"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        tools:src="@mipmap/map_sample" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            tools:src="@mipmap/map_sample"
+            android:transitionName="@string/map"/>
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/v_map_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:transitionName="@string/map_background"
+            android:background="@drawable/scrim"/>
+
+    </FrameLayout>
 
 </LinearLayout>
 
