@@ -40,6 +40,7 @@
         app:behavior_peekHeight="55dp"
         app:layout_insetEdge="bottom"
         android:background="@color/primary_light"
+        android:orientation="vertical"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <Spinner
