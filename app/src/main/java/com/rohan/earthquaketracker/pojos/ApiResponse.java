@@ -6,9 +6,10 @@ import java.util.List;
 
 public class ApiResponse {
     @SerializedName("features")
-    private List<Earthquake> mEarthquakes;
+//    private List<Earthquake> mEarthquakes;
+    private Earthquake[] mEarthquakes;
 
-    public List<Earthquake> getEarthquakes() {
+    public Earthquake[] getEarthquakes() {
         return mEarthquakes;
     }
 }

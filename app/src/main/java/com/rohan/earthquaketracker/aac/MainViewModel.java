@@ -12,20 +12,26 @@ import com.rohan.earthquaketracker.repo.MainRepository;
 import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
-    private LiveData<List<Earthquake>> mEarthquakes;
+    private LiveData<Earthquake[]> mEarthquakes;
     private LiveData<Boolean> mDownloading;
+    private LiveData<Integer> mLimit;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         mEarthquakes = MainRepository.getEarthquakes();
         mDownloading = MainRepository.getDownloading();
+        mLimit = MainRepository.getLimit();
     }
 
-    public LiveData<List<Earthquake>> getEarthquakes() {
+    public LiveData<Earthquake[]> getEarthquakes() {
         return mEarthquakes;
     }
 
     public LiveData<Boolean> getDownloading() {
         return mDownloading;
+    }
+
+    public LiveData<Integer> getLimit() {
+        return mLimit;
     }
 }

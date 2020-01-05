@@ -8,7 +8,7 @@ import java.util.List;
 public final class ColorUtils {
     private ColorUtils() {}
 
-    public static void setBackgroundAndScrim(List<Earthquake> earthquakes) {
+    public static void setBackgroundAndScrim(Earthquake[] earthquakes) {
         for (Earthquake earthquake : earthquakes) {
             double magnitude = earthquake.getProperties().getMagnitude();
             earthquake.getProperties().setMagnitudeBackground(getMagBackgroundColor(magnitude));

@@ -26,13 +26,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.rohan.earthquaketracker.aac.MainViewModel;
 import com.rohan.earthquaketracker.adapters.EarthquakesAdapter;
 import com.rohan.earthquaketracker.pojos.Earthquake;
 import com.rohan.earthquaketracker.repo.LocationRepository;
 import com.rohan.earthquaketracker.repo.MainRepository;
+import com.rohan.earthquaketracker.utils.SortingUtils;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,15 +54,32 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         setupList();
 
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.getEarthquakes().observe(this, earthquakes -> mAdapter.submitList(earthquakes));
+        viewModel.getEarthquakes().observe(this, earthquakes -> {
+            mAdapter.submitList(Arrays.asList(earthquakes));
+            Toast.makeText(MainActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
+        });
         viewModel.getDownloading().observe(this, downloading -> mSwipeRefreshLayout.setRefreshing(downloading));
+        viewModel.getLimit().observe(this, limit -> MainRepository.downloadEarthquakes(getApplicationContext(), limit));
 
         LocationRepository.initializeLocation(this);
 
-        MainRepository.downloadEarthquakes();
+        setupBottomSheet();
+    }
 
-        Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.count_earthquakes_string_array, android.R.layout.simple_spinner_item);
+    private void setupBottomSheet() {
+        setupSpinner(R.id.spinner_limit, R.array.limit_string_array);
+        setupSpinner(R.id.spinner_sort, R.array.sort_string_array);
+
+        // TODO: Be default, it should use the last limit value and not the first every time.
+        //  Eg. If the user previously choose 300 as the limit, the next time the app loads, it must use 300 and not 100
+//        int limit = Integer.parseInt(spinnerAdapter.getItem(0).toString());
+        int limit = 100;
+        MainRepository.downloadEarthquakes(this, limit);
+    }
+
+    private void setupSpinner(int spinnerResId, int spinnerArrayResId) {
+        Spinner spinner = findViewById(spinnerResId);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, spinnerArrayResId, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
@@ -94,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         rvEarthquakes.setHasFixedSize(true);
         rvEarthquakes.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        mSwipeRefreshLayout.setOnRefreshListener(MainRepository::downloadEarthquakes);
+        mSwipeRefreshLayout.setOnRefreshListener(() -> MainRepository.downloadEarthquakes(getApplicationContext(), MainRepository.getLimit().getValue()));
     }
 
     @Override
@@ -116,8 +135,27 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        switch (parent.getId()) {
+            case R.id.spinner_limit:
+                String limitString = parent.getItemAtPosition(position).toString();
+                int limit = Integer.parseInt(limitString);
+                MainRepository.changeLimit(limit);
+                break;
+
+            case R.id.spinner_sort:
+                String sortString = parent.getItemAtPosition(position).toString();
+                if (sortString.equals(getString(R.string.lowest_magnitude_first)) ||
+                        sortString.equals(getString(R.string.oldest_first))) {
+                    Earthquake[] earthquakes = SortingUtils.quickSort(MainRepository.getEarthquakes().getValue(), sortString, this);
+                    MainRepository.getEarthquakes().postValue(earthquakes);
+                } else if (sortString.equals(getString(R.string.highest_magnitude_first)) ||
+                        sortString.equals(getString(R.string.recent_first))) {
+                    Earthquake[] earthquakes = SortingUtils.quickSort(MainRepository.getEarthquakes().getValue(), sortString, this);
+                    earthquakes = SortingUtils.reverseArray(earthquakes);
+                    MainRepository.getEarthquakes().postValue(earthquakes);
+                }
+                break;
+        }
     }
 
     @Override

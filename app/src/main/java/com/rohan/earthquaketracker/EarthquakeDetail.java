@@ -84,18 +84,7 @@ public class EarthquakeDetail extends AppCompatActivity {
         Double userLng = LocationRepository.getLastKnownLng();
 
         mMapUrl = UriUtils.getMapUrl(lat, lng, userLat, userLng);
-        Picasso.get().load(mMapUrl)
-                .into(ivMap, new Callback() {
-                    @Override
-                    public void onSuccess() {
-//                        vMapBackground.setAlpha(1);
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-
-                    }
-                });
+        Picasso.get().load(mMapUrl).into(ivMap);
     }
 
     private void loadDetails() {
@@ -136,7 +125,7 @@ public class EarthquakeDetail extends AppCompatActivity {
                     new Pair<>(tvLocation2, tvLocation2.getTransitionName()),
                     new Pair<>(tvTime, tvTime.getTransitionName()),
                     new Pair<>(ivMagBackground, ivMagBackground.getTransitionName()),
-//                    new Pair<>(ivMap, ivMap.getTransitionName()),
+                    new Pair<>(ivMap, ivMap.getTransitionName()),
                     new Pair<>(vMapBackground, vMapBackground.getTransitionName())).toBundle();
         }
 

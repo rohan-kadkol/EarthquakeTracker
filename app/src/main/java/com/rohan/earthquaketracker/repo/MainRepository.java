@@ -1,7 +1,10 @@
 package com.rohan.earthquaketracker.repo;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.rohan.earthquaketracker.R;
 import com.rohan.earthquaketracker.pojos.ApiResponse;
 import com.rohan.earthquaketracker.pojos.Earthquake;
 import com.rohan.earthquaketracker.retrofit.ApiMethods;
@@ -16,46 +19,69 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainRepository {
-    private static MutableLiveData<List<Earthquake>> sEarthquakes;
+    private static MutableLiveData<Earthquake[]> sEarthquakes;
     private static MutableLiveData<Boolean> sDownloading;
+
+    private static MutableLiveData<Integer> sLimit;
 
     static {
         sEarthquakes = new MutableLiveData<>();
-        sEarthquakes.setValue(new ArrayList<>());
+        sEarthquakes.postValue(new Earthquake[] {});
         sDownloading = new MutableLiveData<>();
-        sDownloading.setValue(false);
+        sDownloading.postValue(false);
+        sLimit = new MutableLiveData<>();
     }
 
-    public static void downloadEarthquakes() {
-        sDownloading.setValue(true);
+    public static void downloadEarthquakes(Context context, int limit) {
+        sDownloading.postValue(true);
+
+        if (sLimit.getValue() == null || limit != sLimit.getValue()) {
+            sLimit.postValue(limit);
+        }
 
         ApiMethods apiMethods = RetrofitClientInstance.getRetrofitInstance().create(ApiMethods.class);
-        apiMethods.getEarthquakes(200).cancel();
-        apiMethods.getEarthquakes(200).enqueue(new Callback<ApiResponse>() {
+
+        // Cancel all previous requests
+        String[] limits = context.getResources().getStringArray(R.array.limit_string_array);
+        for (String limitString : limits) {
+            int limitTemp = Integer.parseInt(limitString);
+            apiMethods.getEarthquakes(limitTemp).cancel();
+        }
+
+        apiMethods.getEarthquakes(limit).enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                sDownloading.setValue(false);
+                sDownloading.postValue(false);
                 if (!response.isSuccessful() || response.body() == null) {
                     return;
                 }
-                List<Earthquake> earthquakes = response.body().getEarthquakes();
+//                List<Earthquake> earthquakes = response.body().getEarthquakes();
+                Earthquake[] earthquakes = response.body().getEarthquakes();
                 ColorUtils.setBackgroundAndScrim(earthquakes);
-                sEarthquakes.setValue(earthquakes);
+                sEarthquakes.postValue(earthquakes);
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-                sDownloading.setValue(false);
+                sDownloading.postValue(false);
             }
         });
     }
 
-    public static MutableLiveData<List<Earthquake>> getEarthquakes() {
+    public static MutableLiveData<Earthquake[]> getEarthquakes() {
         return sEarthquakes;
     }
 
     public static MutableLiveData<Boolean> getDownloading() {
         return sDownloading;
+    }
+
+    public static MutableLiveData<Integer> getLimit() {
+        return sLimit;
+    }
+
+    public static void changeLimit(int limit) {
+        sLimit.postValue(limit);
     }
 
     // TODO: Prevent memory leak. Eg. When the call is in progress and the app is closed.

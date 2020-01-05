@@ -23,11 +23,22 @@
     <string name="map">map</string>
     <string name="map_background">map_background</string>
 
-    <string-array name="count_earthquakes_string_array">
+    <string-array name="limit_string_array">
         <item>100</item>
         <item>200</item>
         <item>300</item>
         <item>400</item>
         <item>500</item>
     </string-array>
+
+    <string-array name="sort_string_array">
+        <item>@string/lowest_magnitude_first</item>
+        <item>@string/highest_magnitude_first</item>
+        <item>@string/recent_first</item>
+        <item>@string/oldest_first</item>
+    </string-array>
+    <string name="lowest_magnitude_first">Lowest magnitude first</string>
+    <string name="highest_magnitude_first">Highest magnitude first</string>
+    <string name="recent_first">Recent first</string>
+    <string name="oldest_first">Oldest first</string>
 </resources>

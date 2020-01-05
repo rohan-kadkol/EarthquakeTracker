@@ -100,7 +100,7 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
             int magBackgroundColorId = earthquake.getProperties().getMagnitudeBackground();
             int scrimResId = earthquake.getProperties().getScrim();
             int rootBackgroundColorId = earthquake.getProperties().getRootBackground();
-            String time = StringUtils.getFormattedDate(earthquake.getProperties().getTime() * 1000L);
+            String time = StringUtils.getFormattedDate(earthquake.getProperties().getTime());
 
             tvMagnitude.setText(magnitude);
             tvLocation1.setText(location[0]);
@@ -119,3 +119,5 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
         }
     }
 }
+
+// TODO: Remove unused scrim code
