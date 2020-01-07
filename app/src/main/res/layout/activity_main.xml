@@ -19,33 +19,48 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_dodgeInsetEdges="bottom">
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?actionBarSize"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_dodgeInsetEdges="bottom">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_earthquakes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_earthquake"
-                app:fastScrollEnabled="true"
-                app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-                app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
-                app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
-                app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"/>
+                tools:listitem="@layout/item_earthquake" />
+            <!--            app:fastScrollEnabled="true"
+                            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+                            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+                            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+                            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"-->
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/bottom_sheet"
-            app:behavior_peekHeight="55dp"
-            app:layout_behavior="@string/bottom_sheet_behavior"
-            app:layout_insetEdge="bottom"/>
+        <com.futuremind.recyclerviewfastscroll.FastScroller
+            android:id="@+id/fastscroll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            app:fastscroll__handleColor="@color/primary"
+            app:fastscroll__bubbleColor="@color/primary_light"
+            android:orientation="vertical" />
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_peekHeight="55dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:layout_insetEdge="bottom" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

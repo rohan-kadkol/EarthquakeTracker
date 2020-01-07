@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.futuremind.recyclerviewfastscroll.FastScroller;
 import com.rohan.earthquaketracker.aac.MainViewModel;
 import com.rohan.earthquaketracker.adapters.EarthquakesAdapter;
 import com.rohan.earthquaketracker.pojos.Earthquake;
@@ -112,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         rvEarthquakes.setLayoutManager(new LinearLayoutManager(this));
         rvEarthquakes.setHasFixedSize(true);
         rvEarthquakes.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        FastScroller fastScroller = findViewById(R.id.fastscroll);
+        fastScroller.setRecyclerView(rvEarthquakes);
 
         mSwipeRefreshLayout.setOnRefreshListener(() -> MainRepository.downloadEarthquakes(getApplicationContext(), MainRepository.getLimit().getValue()));
     }

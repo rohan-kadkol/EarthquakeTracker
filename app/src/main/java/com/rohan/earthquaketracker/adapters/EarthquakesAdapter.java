@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.futuremind.recyclerviewfastscroll.SectionTitleProvider;
 import com.rohan.earthquaketracker.R;
 import com.rohan.earthquaketracker.pojos.Earthquake;
 import com.rohan.earthquaketracker.utils.StringUtils;
@@ -24,8 +25,15 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapter.ViewHolder> {
+public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapter.ViewHolder> implements SectionTitleProvider {
     private EarthquakeClickInterface mClickInterface;
+    private Context mContext;
+
+    @Override
+    public String getSectionTitle(int position) {
+        double magnitude = getItem(position).getProperties().getMagnitude();
+        return mContext.getString(R.string.magnitude_value, magnitude);
+    }
 
     public interface EarthquakeClickInterface {
         void onClick(Earthquake earthquake, TextView tvMagnitude, TextView tvLocation1, TextView tvLocation2,
@@ -48,9 +56,10 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
         }
     };
 
-    public EarthquakesAdapter(EarthquakeClickInterface clickInterface) {
+    public EarthquakesAdapter(Context context) {
         super(DIFF_CALLBACK);
-        mClickInterface = clickInterface;
+        mClickInterface = (EarthquakeClickInterface) context;
+        mContext = context;
     }
 
     @NonNull

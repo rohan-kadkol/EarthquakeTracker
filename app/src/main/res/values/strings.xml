@@ -22,6 +22,7 @@
     <string name="map_image_url">map-image-url</string>
     <string name="map">map</string>
     <string name="map_background">map_background</string>
+    <string name="magnitude_value">%1$.0f</string>
 
     <string-array name="limit_string_array">
         <item>100</item>
