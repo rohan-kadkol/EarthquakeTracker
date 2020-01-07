@@ -12,7 +12,6 @@ public final class ColorUtils {
         for (Earthquake earthquake : earthquakes) {
             double magnitude = earthquake.getProperties().getMagnitude();
             earthquake.getProperties().setMagnitudeBackground(getMagBackgroundColor(magnitude));
-            earthquake.getProperties().setScrim(getMagScrimColor(magnitude));
             earthquake.getProperties().setRootBackground(getRootBackgroundColor(magnitude));
         }
     }
@@ -56,47 +55,6 @@ public final class ColorUtils {
                 colorResId = R.color.magnitude_10;
         }
         return colorResId;
-    }
-
-    public static int getMagScrimColor(double magnitude) {
-        int scrimResId;
-        int mag = (int) Math.floor(magnitude);
-        switch (mag) {
-            case -1:
-            case 0:
-                scrimResId = R.drawable.scrim_0;
-                break;
-            case 1:
-                scrimResId = R.drawable.scrim_1;
-                break;
-            case 2:
-                scrimResId = R.drawable.scrim_2;
-                break;
-            case 3:
-                scrimResId = R.drawable.scrim_3;
-                break;
-            case 4:
-                scrimResId = R.drawable.scrim_4;
-                break;
-            case 5:
-                scrimResId = R.drawable.scrim_5;
-                break;
-            case 6:
-                scrimResId = R.drawable.scrim_6;
-                break;
-            case 7:
-                scrimResId = R.drawable.scrim_7;
-                break;
-            case 8:
-                scrimResId = R.drawable.scrim_8;
-                break;
-            case 9:
-                scrimResId = R.drawable.scrim_9;
-                break;
-            default:
-                scrimResId = R.drawable.scrim_10;
-        }
-        return scrimResId;
     }
 
     public static int getRootBackgroundColor(double magnitude) {

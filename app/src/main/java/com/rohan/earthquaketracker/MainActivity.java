@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
 
     private void setupBottomSheet() {
         setupSpinner(R.id.spinner_limit, R.array.limit_string_array);
-        setupSpinner(R.id.spinner_sort, R.array.sort_string_array);
+        setupSpinner(R.id.spinner_time, R.array.sort_string_array);
 
         // TODO: Be default, it should use the last limit value and not the first every time.
         //  Eg. If the user previously choose 300 as the limit, the next time the app loads, it must use 300 and not 100
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
                 MainRepository.changeLimit(limit);
                 break;
 
-            case R.id.spinner_sort:
+            case R.id.spinner_local_sort:
                 String sortString = parent.getItemAtPosition(position).toString();
                 if (sortString.equals(getString(R.string.lowest_magnitude_first)) ||
                         sortString.equals(getString(R.string.oldest_first))) {

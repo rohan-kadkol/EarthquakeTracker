@@ -16,38 +16,78 @@
 
     <TextView
         android:id="@+id/tv_title_limit"
+        style="@style/Overline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="# of quakes"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/title_limit_quakes"
         app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0"/>
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinner_limit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_limit"
+        app:layout_constraintEnd_toEndOf="@id/tv_title_limit"
         app:layout_constraintStart_toStartOf="@id/tv_title_limit"
-        app:layout_constraintEnd_toEndOf="@id/tv_title_limit" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title_limit" />
 
     <TextView
-        android:id="@+id/tv_title_sort"
+        android:id="@+id/tv_title_time"
+        style="@style/Overline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sort by"
-        app:layout_constraintStart_toEndOf="@id/guideline"
+        android:text="@string/title_time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0"/>
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner_sort"
+        android:id="@+id/spinner_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_sort"
-        app:layout_constraintStart_toStartOf="@id/tv_title_sort"
-        app:layout_constraintEnd_toEndOf="@id/tv_title_sort" />
+        app:layout_constraintEnd_toEndOf="@id/tv_title_time"
+        app:layout_constraintStart_toStartOf="@id/tv_title_time"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_time" />
+
+    <TextView
+        android:id="@+id/tv_title_download_sort"
+        style="@style/Overline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/title_download_sort"
+        app:layout_constraintEnd_toEndOf="@id/tv_title_limit"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/tv_title_limit"
+        app:layout_constraintTop_toBottomOf="@id/spinner_limit" />
+
+    <Spinner
+        android:id="@+id/spinner_download_sort"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tv_title_download_sort"
+        app:layout_constraintStart_toStartOf="@id/tv_title_download_sort"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_download_sort" />
+
+    <TextView
+        android:id="@+id/tv_title_local_sort"
+        style="@style/Overline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/title_local_sort"
+        app:layout_constraintEnd_toEndOf="@id/tv_title_time"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/tv_title_time"
+        app:layout_constraintTop_toBottomOf="@id/spinner_time" />
+
+    <Spinner
+        android:id="@+id/spinner_local_sort"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tv_title_local_sort"
+        app:layout_constraintStart_toStartOf="@id/tv_title_local_sort"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_local_sort" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

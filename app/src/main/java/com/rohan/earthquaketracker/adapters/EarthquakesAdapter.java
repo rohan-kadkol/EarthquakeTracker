@@ -107,7 +107,6 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
             String magnitude = StringUtils.getFormattedMagnitude(earthquake.getProperties().getMagnitude());
             String[] location = StringUtils.getFormattedLocation(earthquake.getProperties().getPlace());
             int magBackgroundColorId = earthquake.getProperties().getMagnitudeBackground();
-            int scrimResId = earthquake.getProperties().getScrim();
             int rootBackgroundColorId = earthquake.getProperties().getRootBackground();
             String time = StringUtils.getFormattedDate(earthquake.getProperties().getTime());
 
@@ -129,4 +128,4 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
     }
 }
 
-// TODO: Remove unused scrim code
+// TODO (COMPLETED): Remove unused scrim code

@@ -10,7 +10,6 @@ public class EProperties implements Parcelable {
     private double magnitude;
 
     transient private Integer magnitudeBackground;
-    transient private Integer scrim;
     transient private Integer rootBackground;
 
     private String place;
@@ -49,7 +48,6 @@ public class EProperties implements Parcelable {
     protected EProperties(Parcel in) {
         magnitude = in.readDouble();
         magnitudeBackground = in.readInt();
-        scrim = in.readInt();
         rootBackground = in.readInt();
         place = in.readString();
         significance = in.readInt();
@@ -71,7 +69,6 @@ public class EProperties implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(magnitude);
         dest.writeInt(magnitudeBackground);
-        dest.writeInt(scrim);
         dest.writeInt(rootBackground);
         dest.writeString(place);
         dest.writeInt(significance);
@@ -142,20 +139,12 @@ public class EProperties implements Parcelable {
         return magnitudeBackground;
     }
 
-    public Integer getScrim() {
-        return scrim;
-    }
-
     public Integer getRootBackground() {
         return rootBackground;
     }
 
     public void setMagnitudeBackground(Integer magnitudeBackground) {
         this.magnitudeBackground = magnitudeBackground;
-    }
-
-    public void setScrim(Integer scrim) {
-        this.scrim = scrim;
     }
 
     public void setRootBackground(Integer rootBackground) {

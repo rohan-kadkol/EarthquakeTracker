@@ -42,4 +42,9 @@
     <string name="highest_magnitude_first">Highest magnitude first</string>
     <string name="recent_first">Recent first</string>
     <string name="oldest_first">Oldest first</string>
+
+    <string name="title_limit_quakes"># of quakes</string>
+    <string name="title_local_sort">Sort results by</string>
+    <string name="title_download_sort">Download by</string>
+    <string name="title_time">Time</string>
 </resources>
