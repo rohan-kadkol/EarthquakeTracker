@@ -14,6 +14,7 @@ public final class UriUtils {
     private static final String COLOR = "color";
     private static final String API_KEY = "key";
     private static final String LABEL = "label";
+    private static final String ZOOM = "zoom";
 
     private UriUtils() {
     }
@@ -27,6 +28,8 @@ public final class UriUtils {
                 .appendQueryParameter(MARKERS, COLOR + ":red|" + LABEL + ":E|" + lat + "," + lng);
         if (userLat != null || userLng != null) {
             builder.appendQueryParameter(MARKERS, COLOR + ":red|" + userLat + "," + userLng);
+        } else {
+            builder.appendQueryParameter(ZOOM, "3");
         }
         builder.appendQueryParameter(API_KEY, BuildConfig.API_KEY);
         return builder.toString();

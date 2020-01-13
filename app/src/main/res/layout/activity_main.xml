@@ -36,11 +36,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_earthquake" />
-            <!--            app:fastScrollEnabled="true"
-                            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-                            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
-                            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
-                            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"-->
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -49,9 +44,22 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            app:fastscroll__handleColor="@color/primary"
-            app:fastscroll__bubbleColor="@color/primary_light"
+            app:fastscroll__handleColor="@color/accent"
+            app:fastscroll__bubbleColor="@color/accent"
             android:orientation="vertical" />
+
+        <ImageButton
+            android:id="@+id/btn_scroll_to_top"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_circle"
+            android:src="@drawable/ic_vertical_align_top_24dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:elevation="6dp"
+            android:layout_marginBottom="@dimen/main_margin">
+
+        </ImageButton>
 
     </RelativeLayout>
 

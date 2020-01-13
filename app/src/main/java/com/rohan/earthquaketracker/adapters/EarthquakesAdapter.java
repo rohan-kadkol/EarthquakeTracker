@@ -29,6 +29,8 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
     private EarthquakeClickInterface mClickInterface;
     private Context mContext;
 
+    private int mCurrentPosition = 0;
+
     @Override
     public String getSectionTitle(int position) {
         double magnitude = getItem(position).getProperties().getMagnitude();
@@ -72,6 +74,7 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        mCurrentPosition = position;
         holder.bind(position);
     }
 
@@ -125,6 +128,10 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
                 tvBody.setText(body);
             }
         }
+    }
+
+    public int getCurrentPosition() {
+        return mCurrentPosition;
     }
 }
 

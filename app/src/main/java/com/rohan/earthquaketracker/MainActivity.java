@@ -21,6 +21,8 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,6 +31,8 @@ import android.widget.Toast;
 import com.futuremind.recyclerviewfastscroll.FastScroller;
 import com.rohan.earthquaketracker.aac.MainViewModel;
 import com.rohan.earthquaketracker.adapters.EarthquakesAdapter;
+import com.rohan.earthquaketracker.fragments.DatePickerFragment;
+import com.rohan.earthquaketracker.misc.SpeedyLinearLayoutManager;
 import com.rohan.earthquaketracker.pojos.Earthquake;
 import com.rohan.earthquaketracker.repo.LocationRepository;
 import com.rohan.earthquaketracker.repo.MainRepository;
@@ -69,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
 
     private void setupBottomSheet() {
         setupSpinner(R.id.spinner_limit, R.array.limit_string_array);
-        setupSpinner(R.id.spinner_time, R.array.sort_string_array);
+        setupSpinner(R.id.spinner_download_sort, R.array.sort_string_array);
+        setupSpinner(R.id.spinner_local_sort, R.array.sort_string_array);
 
         // TODO: Be default, it should use the last limit value and not the first every time.
         //  Eg. If the user previously choose 300 as the limit, the next time the app loads, it must use 300 and not 100
@@ -110,12 +115,18 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         RecyclerView rvEarthquakes = findViewById(R.id.rv_earthquakes);
         mAdapter = new EarthquakesAdapter(this);
         rvEarthquakes.setAdapter(mAdapter);
-        rvEarthquakes.setLayoutManager(new LinearLayoutManager(this));
+        rvEarthquakes.setLayoutManager(new SpeedyLinearLayoutManager(this));
         rvEarthquakes.setHasFixedSize(true);
         rvEarthquakes.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         FastScroller fastScroller = findViewById(R.id.fastscroll);
         fastScroller.setRecyclerView(rvEarthquakes);
+
+        ImageButton scrollToTop = findViewById(R.id.btn_scroll_to_top);
+        scrollToTop.setOnClickListener(v -> {
+            SpeedyLinearLayoutManager layoutManager = (SpeedyLinearLayoutManager) rvEarthquakes.getLayoutManager();
+            layoutManager.smoothScrollToPositionVariableSpeed(rvEarthquakes, mAdapter.getCurrentPosition(), 0);
+        });
 
         mSwipeRefreshLayout.setOnRefreshListener(() -> MainRepository.downloadEarthquakes(getApplicationContext(), MainRepository.getLimit().getValue()));
     }
