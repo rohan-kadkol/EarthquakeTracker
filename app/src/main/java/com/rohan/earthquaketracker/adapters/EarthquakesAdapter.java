@@ -120,7 +120,7 @@ public class EarthquakesAdapter extends ListAdapter<Earthquake, EarthquakesAdapt
             ivMagBackground.setColorFilter(ContextCompat.getColor(ivMagBackground.getContext(), magBackgroundColorId));
             tvTime.setText(time);
 
-            String body = StringUtils.getFormattedSubBody(earthquake);
+            String body = StringUtils.getFormattedSubBody(earthquake, mContext);
             if (TextUtils.isEmpty(body)) {
                 tvBody.setVisibility(View.GONE);
             } else {

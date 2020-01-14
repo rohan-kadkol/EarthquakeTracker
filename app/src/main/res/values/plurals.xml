@@ -5,6 +5,11 @@
         <item quantity="one">%d person</item>
         <item quantity="other">%d people</item>
     </plurals>
+    <plurals name="content_felt_string">
+        <item quantity="zero">No one felt it</item>
+        <item quantity="one">%d person felt it</item>
+        <item quantity="other">%d people felt it</item>
+    </plurals>
     <plurals name="content_nst_stations">
         <item quantity="zero">@string/content_null</item>
         <item quantity="one">%d station</item>

@@ -1,6 +1,7 @@
 package com.rohan.earthquaketracker.repo;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,6 +11,7 @@ import com.rohan.earthquaketracker.pojos.Earthquake;
 import com.rohan.earthquaketracker.retrofit.ApiMethods;
 import com.rohan.earthquaketracker.retrofit.RetrofitClientInstance;
 import com.rohan.earthquaketracker.utils.ColorUtils;
+import com.rohan.earthquaketracker.utils.SortingUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,27 +19,30 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainRepository {
+    private static final String TAG = MainRepository.class.getSimpleName();
+
     private static MutableLiveData<Earthquake[]> sEarthquakes;
     private static MutableLiveData<Boolean> sDownloading;
 
     private static MutableLiveData<Integer> sLimit;
+    private static MutableLiveData<Integer> sCurrentDownloadSort;
 
     static {
         sEarthquakes = new MutableLiveData<>();
-        sEarthquakes.postValue(new Earthquake[] {});
+        sEarthquakes.setValue(new Earthquake[] {});
         sDownloading = new MutableLiveData<>();
-        sDownloading.postValue(false);
+        sDownloading.setValue(false);
         sLimit = new MutableLiveData<>();
+        sLimit.setValue(100);
+        sCurrentDownloadSort = new MutableLiveData<>();
+        sCurrentDownloadSort.setValue(SortingUtils.RECENT_FIRST); //TODO: Use SharedPreferences
     }
 
-    public static void downloadEarthquakes(Context context, int limit) {
+    public static void downloadEarthquakes(Context context) {
         sDownloading.postValue(true);
-
-        if (sLimit.getValue() == null || limit != sLimit.getValue()) {
-            sLimit.postValue(limit);
-        }
 
         ApiMethods apiMethods = RetrofitClientInstance.getRetrofitInstance().create(ApiMethods.class);
 
@@ -48,16 +53,22 @@ public class MainRepository {
             apiMethods.getEarthquakes(limitTemp).cancel();
         }
 
-        apiMethods.getEarthquakes(limit).enqueue(new Callback<ApiResponse>() {
+        String orderBy = SortingUtils.getOrderBy(sCurrentDownloadSort.getValue(), context);
+        if (orderBy == null) {
+            Log.d(TAG, "downloadEarthquakes: ");
+            return;
+        }
+
+        apiMethods.getEarthquakes(sLimit.getValue(), orderBy).enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 sDownloading.postValue(false);
                 if (!response.isSuccessful() || response.body() == null) {
                     return;
                 }
-//                List<Earthquake> earthquakes = response.body().getEarthquakes();
                 Earthquake[] earthquakes = response.body().getEarthquakes();
                 ColorUtils.setBackgroundAndScrim(earthquakes);
+                earthquakes = SortingUtils.sort(earthquakes);
                 sEarthquakes.postValue(earthquakes);
             }
 
@@ -80,8 +91,16 @@ public class MainRepository {
         return sLimit;
     }
 
+    public static MutableLiveData<Integer> getCurrentDownloadSort() {
+        return sCurrentDownloadSort;
+    }
+
     public static void changeLimit(int limit) {
         sLimit.postValue(limit);
+    }
+
+    public static void changeCurrentDownloadSort(int currentDownloadSort) {
+        sCurrentDownloadSort.postValue(currentDownloadSort);
     }
 
     // TODO: Prevent memory leak. Eg. When the call is in progress and the app is closed.

@@ -103,7 +103,7 @@ public class EarthquakeDetail extends AppCompatActivity {
         String[] location = StringUtils.getFormattedLocation(mEarthquake.getProperties().getPlace());
         int magBackground = mEarthquake.getProperties().getMagnitudeBackground();
         int rootBackground = mEarthquake.getProperties().getRootBackground();
-        String time = StringUtils.getFormattedDate(mEarthquake.getProperties().getTime() * 1000L);
+        String time = StringUtils.getFormattedDate(mEarthquake.getProperties().getTime());
 
         tvMagnitude.setText(magnitude);
         tvLocation1.setText(location[0]);

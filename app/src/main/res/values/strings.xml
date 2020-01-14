@@ -33,18 +33,31 @@
     </string-array>
 
     <string-array name="sort_string_array">
-        <item>@string/lowest_magnitude_first</item>
-        <item>@string/highest_magnitude_first</item>
         <item>@string/recent_first</item>
         <item>@string/oldest_first</item>
+        <item>@string/lowest_magnitude_first</item>
+        <item>@string/highest_magnitude_first</item>
     </string-array>
-    <string name="lowest_magnitude_first">Lowest magnitude first</string>
-    <string name="highest_magnitude_first">Highest magnitude first</string>
     <string name="recent_first">Recent first</string>
     <string name="oldest_first">Oldest first</string>
+    <string name="lowest_magnitude_first">Lowest magnitude first</string>
+    <string name="highest_magnitude_first">Highest magnitude first</string>
+    <string name="recent_first_order_by">time</string>
+    <string name="oldest_first_order_by">time-asc</string>
+    <string name="lowest_magnitude_first_order_by">magnitude-asc</string>
+    <string name="highest_magnitude_first_order_by">magnitude</string>
 
     <string name="title_limit_quakes"># of quakes</string>
     <string name="title_local_sort">Sort results by</string>
     <string name="title_download_sort">Download by</string>
     <string name="title_time">Time</string>
+    
+    <string name="tsunami_reported">Large oceanic activity reported</string>
+    <string name="reviewed_by_system">Reviewed by system</string>
+    <string name="reviewed_by_human">Reviewed by human</string>
+    <string name="distance">%1$d %2$s away from you</string>
+    <string name="automatic">automatic</string>
+
+    <string name="unit_mi">mi</string>
+    <string name="unit_km">km</string>
 </resources>

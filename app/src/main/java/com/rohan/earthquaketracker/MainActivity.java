@@ -2,9 +2,9 @@ package com.rohan.earthquaketracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -21,17 +21,14 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.futuremind.recyclerviewfastscroll.FastScroller;
 import com.rohan.earthquaketracker.aac.MainViewModel;
 import com.rohan.earthquaketracker.adapters.EarthquakesAdapter;
-import com.rohan.earthquaketracker.fragments.DatePickerFragment;
 import com.rohan.earthquaketracker.misc.SpeedyLinearLayoutManager;
 import com.rohan.earthquaketracker.pojos.Earthquake;
 import com.rohan.earthquaketracker.repo.LocationRepository;
@@ -39,7 +36,6 @@ import com.rohan.earthquaketracker.repo.MainRepository;
 import com.rohan.earthquaketracker.utils.SortingUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,16 +55,18 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
         setupList();
 
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.getEarthquakes().observe(this, earthquakes -> {
-            mAdapter.submitList(Arrays.asList(earthquakes));
-            Toast.makeText(MainActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
-        });
+        viewModel.getEarthquakes().observe(this, earthquakes -> mAdapter.submitList(Arrays.asList(earthquakes)));
         viewModel.getDownloading().observe(this, downloading -> mSwipeRefreshLayout.setRefreshing(downloading));
-        viewModel.getLimit().observe(this, limit -> MainRepository.downloadEarthquakes(getApplicationContext(), limit));
+        viewModel.getLimit().observe(this, limit -> MainRepository.downloadEarthquakes(getApplicationContext()));
+        viewModel.getCurrentDownloadSort().observe(this, currentDownloadSort -> MainRepository.downloadEarthquakes(getApplicationContext()));
 
         LocationRepository.initializeLocation(this);
 
         setupBottomSheet();
+
+        if (savedInstanceState == null) {
+            MainRepository.downloadEarthquakes(this);
+        }
     }
 
     private void setupBottomSheet() {
@@ -78,9 +76,6 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
 
         // TODO: Be default, it should use the last limit value and not the first every time.
         //  Eg. If the user previously choose 300 as the limit, the next time the app loads, it must use 300 and not 100
-//        int limit = Integer.parseInt(spinnerAdapter.getItem(0).toString());
-        int limit = 100;
-        MainRepository.downloadEarthquakes(this, limit);
     }
 
     private void setupSpinner(int spinnerResId, int spinnerArrayResId) {
@@ -128,7 +123,8 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
             layoutManager.smoothScrollToPositionVariableSpeed(rvEarthquakes, mAdapter.getCurrentPosition(), 0);
         });
 
-        mSwipeRefreshLayout.setOnRefreshListener(() -> MainRepository.downloadEarthquakes(getApplicationContext(), MainRepository.getLimit().getValue()));
+        mSwipeRefreshLayout.setOnRefreshListener(() -> MainRepository.downloadEarthquakes(getApplicationContext()));
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.accent, R.color.primary);
     }
 
     @Override
@@ -158,23 +154,18 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
                 break;
 
             case R.id.spinner_local_sort:
-                String sortString = parent.getItemAtPosition(position).toString();
-                if (sortString.equals(getString(R.string.lowest_magnitude_first)) ||
-                        sortString.equals(getString(R.string.oldest_first))) {
-                    Earthquake[] earthquakes = SortingUtils.quickSort(MainRepository.getEarthquakes().getValue(), sortString, this);
-                    MainRepository.getEarthquakes().postValue(earthquakes);
-                } else if (sortString.equals(getString(R.string.highest_magnitude_first)) ||
-                        sortString.equals(getString(R.string.recent_first))) {
-                    Earthquake[] earthquakes = SortingUtils.quickSort(MainRepository.getEarthquakes().getValue(), sortString, this);
-                    earthquakes = SortingUtils.reverseArray(earthquakes);
-                    MainRepository.getEarthquakes().postValue(earthquakes);
-                }
+                SortingUtils.setCurrentLocalSort(position);
+                Earthquake[] earthquakes = SortingUtils.sort(MainRepository.getEarthquakes().getValue());
+                MainRepository.getEarthquakes().postValue(earthquakes);
+                break;
+
+            case R.id.spinner_download_sort:
+                MainRepository.changeCurrentDownloadSort(position);
                 break;
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

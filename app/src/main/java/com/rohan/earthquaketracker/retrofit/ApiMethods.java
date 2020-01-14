@@ -10,6 +10,9 @@ import retrofit2.http.Query;
 public interface ApiMethods {
 //        @GET("query?format=geojson&eventtype=earthquake&minmagnitude=5")
     @GET("query?format=geojson&eventtype=earthquake")
+    Call<ApiResponse> getEarthquakes(@Query("limit") Integer limit, @Query("orderby") String sort);
+
+    @GET("query?format=geojson&eventtype=earthquake")
     Call<ApiResponse> getEarthquakes(@Query("limit") int limit);
 }
 // TODO: Date utility class to show year when not the current year. Also can implement to show

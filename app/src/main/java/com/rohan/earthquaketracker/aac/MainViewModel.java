@@ -15,12 +15,14 @@ public class MainViewModel extends AndroidViewModel {
     private LiveData<Earthquake[]> mEarthquakes;
     private LiveData<Boolean> mDownloading;
     private LiveData<Integer> mLimit;
+    private LiveData<Integer> mCurrentDownloadSort;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         mEarthquakes = MainRepository.getEarthquakes();
         mDownloading = MainRepository.getDownloading();
         mLimit = MainRepository.getLimit();
+        mCurrentDownloadSort = MainRepository.getCurrentDownloadSort();
     }
 
     public LiveData<Earthquake[]> getEarthquakes() {
@@ -33,5 +35,9 @@ public class MainViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getLimit() {
         return mLimit;
+    }
+
+    public LiveData<Integer> getCurrentDownloadSort() {
+        return mCurrentDownloadSort;
     }
 }

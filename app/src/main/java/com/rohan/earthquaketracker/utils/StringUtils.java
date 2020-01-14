@@ -2,6 +2,7 @@ package com.rohan.earthquaketracker.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.core.util.Pair;
 
@@ -23,7 +24,7 @@ public final class StringUtils {
         return String.format(Locale.getDefault(), "%.1f", magnitude);
     }
 
-    public static String[] getFormattedLocation(String location) {
+    public static String[] getFormattedLocation(String location) { // TODO: Multilingual Support
         int firstCharAscii = location.charAt(0);
         // First char is a number
         if (firstCharAscii >= 48 && firstCharAscii <= 57) {
@@ -42,7 +43,7 @@ public final class StringUtils {
         }
     }
 
-    public static String getFormattedSubBody(Earthquake earthquake) {
+    public static String getFormattedSubBody(Earthquake earthquake, Context context) {
         double latitude = earthquake.getGeometry().getCoordinates()[1];
         double longitude = earthquake.getGeometry().getCoordinates()[0];
         int distance = LocationUtils.findDistanceToUser(latitude, longitude); // TODO: Create helper class that returns distance from given coordinates to user's location
@@ -53,20 +54,22 @@ public final class StringUtils {
         StringBuilder builder = new StringBuilder();
         if (distance != -1) {
             firstLinePrinted = true;
-            builder.append(distance).append("mi away from you");
+            String unit = context.getString(R.string.unit_mi); //TODO: Use the user's preferred unit
+            builder.append(distance).append(context.getString(R.string.distance, distance, unit));
         }
         if (felt > 0) {
             if (firstLinePrinted) {
                 builder.append("\n");
             }
             firstLinePrinted = true;
-            builder.append(felt).append(" people felt it");
+            String feltString = context.getResources().getQuantityString(R.plurals.content_felt_string, felt, felt);
+            builder.append(feltString);
         }
         if (tsunami > 0) {
             if (firstLinePrinted) {
                 builder.append("\n");
             }
-            builder.append("Tsunami reported. Click for more info");
+            builder.append(context.getString(R.string.tsunami_reported));
         }
 
         return builder.toString();
@@ -74,12 +77,12 @@ public final class StringUtils {
 
     public static String getFormattedDate(long time) {
         Date date = new Date(time);
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd hh:mm aa", Locale.getDefault());
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy - hh:mm aa", Locale.getDefault());
         formatter.setTimeZone(Calendar.getInstance().getTimeZone());
         return formatter.format(date);
     }
 
-    public static String getFormattedMainBody(Earthquake earthquake) {
+    public static String getFormattedMainBody(Earthquake earthquake, Context context) {
         double latitude = earthquake.getGeometry().getCoordinates()[1];
         double longitude = earthquake.getGeometry().getCoordinates()[0];
         int distance = LocationUtils.findDistanceToUser(latitude, longitude);
@@ -91,14 +94,15 @@ public final class StringUtils {
         StringBuilder builder = new StringBuilder();
         if (distance != -1) {
             firstLinePrinted = true;
-            builder.append(distance).append("mi away from you");
+            String unit = context.getString(R.string.unit_mi); //TODO: Use the user's preferred unit
+            builder.append(distance).append(context.getString(R.string.distance, distance, unit));
         }
         if (tsunami == 1) {
             if (firstLinePrinted) {
                 builder.append("\n");
             }
             firstLinePrinted = true;
-            builder.append("Large oceanic activity reported");
+            builder.append(context.getString(R.string.tsunami_reported));
         }
 
         if (firstLinePrinted) {
@@ -111,9 +115,9 @@ public final class StringUtils {
             }
             firstLinePrinted = true;
             if (status.equals("automatic")) {
-                builder.append("Reviewed by system");
+                builder.append(context.getString(R.string.reviewed_by_system));
             } else {
-                builder.append("Reviewed by human");
+                builder.append(context.getString(R.string.reviewed_by_human));
             }
         }
 
@@ -131,7 +135,7 @@ public final class StringUtils {
         String content;
 
         title = null;
-        content = getFormattedMainBody(earthquake);
+        content = getFormattedMainBody(earthquake, context);
         details.add(new Pair<>(title, content));
 
         // Alert Color
