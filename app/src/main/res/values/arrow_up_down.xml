@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- geometry -->
+    <string name="path_arrow_up">M7.41,15.41L12,10.83l4.59,4.58L18,14l-6,-6 -6,6z</string>
+    <string name="path_arrow_down">M7.41,7.84L12,12.42l4.59,-4.58L18,9.25l-6,6 -6,-6z</string>
+
+    <!-- time -->
+    <integer name="duration">450</integer>
+
+    <!-- names -->
+    <string name="up">up</string>
+    <string name="down">down</string>
+</resources>

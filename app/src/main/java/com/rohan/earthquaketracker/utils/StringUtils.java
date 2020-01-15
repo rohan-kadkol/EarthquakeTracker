@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Locale;
 
 public final class StringUtils {
+    // TODO: Remove redundant code. Eg. getFormattedSubBody and getFormattedMainBody
+
     private StringUtils() {
     }
 
@@ -55,7 +57,7 @@ public final class StringUtils {
         if (distance != -1) {
             firstLinePrinted = true;
             String unit = context.getString(R.string.unit_mi); //TODO: Use the user's preferred unit
-            builder.append(distance).append(context.getString(R.string.distance, distance, unit));
+            builder.append(context.getString(R.string.distance, distance, unit));
         }
         if (felt > 0) {
             if (firstLinePrinted) {
@@ -95,7 +97,7 @@ public final class StringUtils {
         if (distance != -1) {
             firstLinePrinted = true;
             String unit = context.getString(R.string.unit_mi); //TODO: Use the user's preferred unit
-            builder.append(distance).append(context.getString(R.string.distance, distance, unit));
+            builder.append(context.getString(R.string.distance, distance, unit));
         }
         if (tsunami == 1) {
             if (firstLinePrinted) {

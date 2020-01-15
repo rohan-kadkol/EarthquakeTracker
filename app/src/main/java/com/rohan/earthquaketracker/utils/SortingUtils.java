@@ -14,7 +14,6 @@ public final class SortingUtils {
     public static final int LOWEST_MAGNITUDE_FIRST = 2;
     public static final int HIGHEST_MAGNITUDE_FIRST = 3;
 
-    public static int sCurrentDownloadSort;
     public static int sCurrentLocalSort;
 
     private SortingUtils() {
@@ -78,6 +77,7 @@ public final class SortingUtils {
     public static Earthquake[] sort(Earthquake[] earthquakes) {
         if (earthquakes == null) {
             Log.d(TAG, "sortAndUpdate: earthquakes passed is null");
+            return new Earthquake[] {};
         }
 
         Earthquake[] newEarthquakes = new Earthquake[0];
@@ -88,10 +88,6 @@ public final class SortingUtils {
             newEarthquakes = SortingUtils.reverseArray(newEarthquakes);
         }
         return newEarthquakes;
-    }
-
-    public static void setCurrentDownloadSort(int currentDownloadSort) {
-        sCurrentDownloadSort = currentDownloadSort;
     }
 
     public static void setCurrentLocalSort(int currentLocalSort) {

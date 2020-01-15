@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_light"
     android:orientation="vertical"
-    android:padding="@dimen/sub_margin">
+    android:paddingStart="@dimen/sub_margin"
+    android:paddingEnd="@dimen/sub_margin"
+    android:paddingBottom="@dimen/sub_margin">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -13,6 +16,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <ImageView
+        android:id="@+id/iv_up_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_arrow_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_title_limit"
@@ -23,7 +35,7 @@
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/iv_up_down" />
 
     <Spinner
         android:id="@+id/spinner_limit"
@@ -31,7 +43,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/tv_title_limit"
         app:layout_constraintStart_toStartOf="@id/tv_title_limit"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_limit" />
+        app:layout_constraintTop_toBottomOf="@id/barrier_first_row" />
 
     <TextView
         android:id="@+id/tv_title_time"
@@ -42,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_title_limit" />
 
     <Spinner
         android:id="@+id/spinner_time"
@@ -50,7 +62,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/tv_title_time"
         app:layout_constraintStart_toStartOf="@id/tv_title_time"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_time" />
+        app:layout_constraintTop_toBottomOf="@id/barrier_first_row" />
 
     <TextView
         android:id="@+id/tv_title_download_sort"
@@ -69,7 +81,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/tv_title_download_sort"
         app:layout_constraintStart_toStartOf="@id/tv_title_download_sort"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_download_sort" />
+        app:layout_constraintTop_toBottomOf="@id/barrier_second_row" />
 
     <TextView
         android:id="@+id/tv_title_local_sort"
@@ -80,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="@id/tv_title_time"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/tv_title_time"
-        app:layout_constraintTop_toBottomOf="@id/spinner_time" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_title_download_sort" />
 
     <Spinner
         android:id="@+id/spinner_local_sort"
@@ -88,6 +100,24 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/tv_title_local_sort"
         app:layout_constraintStart_toStartOf="@id/tv_title_local_sort"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_local_sort" />
+        app:layout_constraintTop_toBottomOf="@id/barrier_second_row" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_first_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="tv_title_limit,tv_title_time"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="723dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_second_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="tv_title_download_sort,tv_title_local_sort"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="723dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

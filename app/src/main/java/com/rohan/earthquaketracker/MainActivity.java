@@ -1,6 +1,7 @@
 package com.rohan.earthquaketracker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -13,6 +14,8 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -27,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.futuremind.recyclerviewfastscroll.FastScroller;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.rohan.earthquaketracker.aac.MainViewModel;
 import com.rohan.earthquaketracker.adapters.EarthquakesAdapter;
 import com.rohan.earthquaketracker.misc.SpeedyLinearLayoutManager;
@@ -45,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
     EarthquakesAdapter mAdapter;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private AnimatedVectorDrawable upToDown;
+    private AnimatedVectorDrawable downToUp;
+
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +79,69 @@ public class MainActivity extends AppCompatActivity implements EarthquakesAdapte
     }
 
     private void setupBottomSheet() {
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
         setupSpinner(R.id.spinner_limit, R.array.limit_string_array);
         setupSpinner(R.id.spinner_download_sort, R.array.sort_string_array);
         setupSpinner(R.id.spinner_local_sort, R.array.sort_string_array);
 
+        setupUpDownButton();
+
         // TODO: Be default, it should use the last limit value and not the first every time.
         //  Eg. If the user previously choose 300 as the limit, the next time the app loads, it must use 300 and not 100
+    }
+
+    private void setupUpDownButton() {
+        ImageView ivUpDown = findViewById(R.id.iv_up_down);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            upToDown = (AnimatedVectorDrawable) getDrawable(R.drawable.avd_up_to_down);
+            downToUp = (AnimatedVectorDrawable) getDrawable(R.drawable.avd_down_to_up);
+
+            mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                    AnimatedVectorDrawable drawable = null;
+                    if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                        drawable = upToDown;
+                    } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                        drawable = downToUp;
+                    }
+                    if (newState == BottomSheetBehavior.STATE_EXPANDED || newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                        ivUpDown.setImageDrawable(drawable);
+                        drawable.start();
+                    }
+                }
+
+                @Override
+                public void onSlide(@NonNull View view, float v) {
+                }
+            });
+        } else {
+            mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                    if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                        ivUpDown.setImageResource(R.drawable.ic_arrow_up);
+                    } else if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                        ivUpDown.setImageResource(R.drawable.ic_arrow_down);
+                    }
+                }
+
+                @Override
+                public void onSlide(@NonNull View view, float v) {
+                }
+            });
+        }
+
+        ivUpDown.setOnClickListener(v -> {
+            if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            } else if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
     }
 
     private void setupSpinner(int spinnerResId, int spinnerArrayResId) {
